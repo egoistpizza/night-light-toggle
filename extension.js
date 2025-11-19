@@ -12,23 +12,17 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  * SPDX-License-Identifier: GPL-3.0-only
  */
 
-import GObject from 'gi://GObject';
-import Gio from 'gi://Gio';
-import St from 'gi://St';
-import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
-import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+const { GObject, Gio, St } = imports.gi;
+const Main = imports.ui.main;
+const PanelMenu = imports.ui.panelMenu;
 
 const SETTINGS_SCHEMA_ID = 'org.gnome.settings-daemon.plugins.color';
 const SETTING_KEY_NIGHT_LIGHT_ENABLED = 'night-light-enabled';
 
-const NightLightToggleIndicator = GObject.registerClass(
+var NightLightToggleIndicator = GObject.registerClass(
     class NightLightToggleIndicator extends PanelMenu.Button {
         _init() {
             super._init(0.0, 'Night Light Toggle');
@@ -72,14 +66,24 @@ const NightLightToggleIndicator = GObject.registerClass(
         }
     });
 
-export default class NightLightExtension extends Extension {
+class Extension {
+    constructor() {
+        this._indicator = null;
+    }
+
     enable() {
         this._indicator = new NightLightToggleIndicator();
-        Main.panel.addToStatusArea(this.uuid, this._indicator);
+        Main.panel.addToStatusArea('night-light-toggle-indicator', this._indicator);
     }
 
     disable() {
-        this._indicator.destroy();
-        this._indicator = null;
+        if (this._indicator) {
+            this._indicator.destroy();
+            this._indicator = null;
+        }
     }
+}
+
+function init() {
+    return new Extension();
 }
