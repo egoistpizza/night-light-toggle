@@ -1,0 +1,13 @@
+{
+    "name": "Night Light Toggle",
+    "description": "A minimal status bar indicator to toggle Night Light mode.",
+    "uuid": "night-light-toggle@egoistpizza.github.com",
+    "shell-version": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+    ],
+    "url": "https://github.com/egoistpizza/night-light-toggle"
+}
