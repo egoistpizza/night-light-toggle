@@ -37,7 +37,7 @@ This project utilizes a multi-branch workflow to ensure stability across major G
 ## 🚀 Installation
 
 ### Method 1: GNOME Extensions Website (Recommended)
-[**Download from extensions.gnome.org**](https://extensions.gnome.org/) *(Link will be finalized after approval)*
+[**Download from E.G.O.**](https://extensions.gnome.org/extension/8887/night-light-toggle/)
 
 ### Method 2: Manual Install (From Source)
 
