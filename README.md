@@ -9,7 +9,7 @@ A minimal, zero-config GNOME Shell extension designed to efficiently toggle the 
 ---
 
 <p align="center">
-  <img src="[LINK_TO_YOUR_DEMO_GIF]" alt="Night Light Toggle Demo" width="600" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+  <img src="https://github.com/egoistpizza/night-light-toggle/raw/gnome-40-44/assets/night-light-toggle-preview.gif" alt="Night Light Toggle Demo" width="600" style="border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
 </p>
 
 > **Note on GIF:** Screen recording APIs typically capture the output before the compositor applies the color temperature filter. The GIF only demonstrates the icon switching and toggle functionality, not the actual screen tint change.
