@@ -9,6 +9,9 @@
         "48",
         "49"
     ],
-    "version": 2,
-    "url": "https://github.com/egoistpizza/night-light-toggle"
+    "version": 3,
+    "url": "https://github.com/egoistpizza/night-light-toggle",
+    "donations": {
+        "buymeacoffee": "egoistpizza"
+    }
 }
