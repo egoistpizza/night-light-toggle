@@ -57,12 +57,12 @@ var NightLightToggleIndicator = GObject.registerClass(
                 : 'weather-clear-symbolic';
         }
 
-        _onDestroy() {
+        destroy() {
             if (this._settingsSignalId) {
                 this._settings.disconnect(this._settingsSignalId);
                 this._settingsSignalId = null;
             }
-            super._onDestroy();
+            super.destroy();
         }
     });
 
