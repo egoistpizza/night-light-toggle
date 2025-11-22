@@ -73,13 +73,82 @@ const NightLightToggleIndicator = GObject.registerClass(
     });
 
 export default class NightLightExtension extends Extension {
+    constructor(metadata) {
+        super(metadata);
+        this._indicator = null;
+        this._settings = null;
+        this._settingsSignal = null;
+        this._systemNightLightItem = null;
+        this._systemSignal = null;
+    }
+
     enable() {
         this._indicator = new NightLightToggleIndicator();
         Main.panel.addToStatusArea(this.uuid, this._indicator);
+
+        this._settings = this.getSettings();
+
+        this._refreshSystemUI();
+
+        this._settingsSignal = this._settings.connect('changed::hide-stock-toggle', () => {
+            this._refreshSystemUI();
+        });
     }
 
     disable() {
-        this._indicator.destroy();
-        this._indicator = null;
+        if (this._indicator) {
+            this._indicator.destroy();
+            this._indicator = null;
+        }
+
+        this._restoreSystemUI();
+
+        if (this._settings) {
+            this._settings.run_dispose();
+            this._settings = null;
+        }
+        this._settingsSignal = null;
+    }
+
+    _refreshSystemUI() {
+        let shouldHide = this._settings.get_boolean('hide-stock-toggle');
+
+        if (!this._systemNightLightItem) {
+            if (Main.panel.statusArea.quickSettings) {
+                this._systemNightLightItem = Main.panel.statusArea.quickSettings._nightLight;
+            }
+        }
+
+        if (shouldHide) {
+            this._hideSystemItems();
+        } else {
+            this._restoreSystemUI();
+        }
+    }
+
+    _hideSystemItems() {
+        if (this._systemNightLightItem) {
+            this._systemNightLightItem.visible = false;
+
+            if (!this._systemSignal) {
+                this._systemSignal = this._systemNightLightItem.connect('notify::visible', () => {
+                    let hidden = this._settings.get_boolean('hide-stock-toggle');
+                    if (hidden && this._systemNightLightItem.visible) {
+                        this._systemNightLightItem.visible = false;
+                    }
+                });
+            }
+        }
+    }
+
+    _restoreSystemUI() {
+        if (this._systemNightLightItem) {
+            if (this._systemSignal) {
+                this._systemNightLightItem.disconnect(this._systemSignal);
+                this._systemSignal = null;
+            }
+            this._systemNightLightItem.visible = true;
+            this._systemNightLightItem = null;
+        }
     }
 }

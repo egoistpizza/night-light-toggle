@@ -1,0 +1,19 @@
+.quick-settings-system-panel .quick-toggle-night-light,
+.night-light-toggle-button,
+.quick-toggle-night-light,
+.night-light-indicator {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#night-light-status-menu-item,
+.night-light-menu-item {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+}

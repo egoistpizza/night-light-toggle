@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.night-light-toggle" path="/org/gnome/shell/extensions/night-light-toggle/">
+    <key name="hide-stock-toggle" type="b">
+      <default>false</default>
+      <summary>Hide stock Night Light toggle</summary>
+      <description>Hides the system's default Night Light toggle to avoid redundancy.</description>
+    </key>
+  </schema>
+</schemalist>
