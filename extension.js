@@ -104,10 +104,12 @@ export default class NightLightExtension extends Extension {
         this._restoreSystemUI();
 
         if (this._settings) {
-            this._settings.run_dispose();
+            if (this._settingsSignal) {
+                this._settings.disconnect(this._settingsSignal);
+                this._settingsSignal = null;
+            }
             this._settings = null;
         }
-        this._settingsSignal = null;
     }
 
     _refreshSystemUI() {
