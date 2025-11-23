@@ -74,8 +74,6 @@ class Extension {
         this._indicator = null;
         this._extensionSettings = null;
         this._settingsSignal = null;
-        this._themeContext = null;
-        this._cssFile = null;
         this._systemMenuItem = null;
         this._systemStatusItem = null;
         this._systemStatusSignal = null;
@@ -86,9 +84,6 @@ class Extension {
         Main.panel.addToStatusArea('night-light-toggle-indicator', this._indicator);
 
         this._extensionSettings = ExtensionUtils.getSettings(EXTENSION_SCHEMA_ID);
-
-        this._themeContext = St.ThemeContext.get_for_stage(global.stage);
-        this._cssFile = Me.dir.get_child('stylesheet.css');
 
         this._refreshSystemUI();
 
@@ -103,7 +98,6 @@ class Extension {
             this._indicator = null;
         }
 
-        this._removeStyles();
         this._restoreSystemUI();
 
         if (this._extensionSettings) {
@@ -113,8 +107,6 @@ class Extension {
             }
             this._extensionSettings = null;
         }
-        this._themeContext = null;
-        this._cssFile = null;
     }
 
     _refreshSystemUI() {
@@ -123,10 +115,8 @@ class Extension {
         this._locateSystemItems();
 
         if (shouldHide) {
-            this._loadStyles();
             this._hideSystemItems();
         } else {
-            this._removeStyles();
             this._restoreSystemUI();
         }
     }
@@ -183,19 +173,6 @@ class Extension {
                 aggregateMenu._nightLight._sync();
             }
             this._systemStatusItem = null;
-        }
-    }
-
-    _loadStyles() {
-        if (this._themeContext && this._cssFile) {
-            this._removeStyles();
-            this._themeContext.get_theme().load_stylesheet(this._cssFile);
-        }
-    }
-
-    _removeStyles() {
-        if (this._themeContext && this._cssFile) {
-            this._themeContext.get_theme().unload_stylesheet(this._cssFile);
         }
     }
 }
